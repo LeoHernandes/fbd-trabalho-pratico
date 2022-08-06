@@ -2,120 +2,118 @@
 
 CREATE TABLE Usuario (
     codigo INTEGER PRIMARY KEY,
-    nome VARCHAR,
-    descricao VARCHAR
+    nome VARCHAR(100) NOT NULL,
+    descricao VARCHAR(160) NOT NULL
 );
 
 CREATE TABLE Postagem (
-    compart CHAR,
+    compart INTEGER NOT NULL,
     link INTEGER PRIMARY KEY,
-    curtidas INTEGER,
-    fk_Usuario_codigo INTEGER,
-    fk_Audio_codigo INTEGER
+    curtidas INTEGER NOT NULL,
+    fk_Usuario_codigo INTEGER NOT NULL,
+    fk_Audio_codigo INTEGER NOT NULL,
+    tipo BOOL NOT NULL
 );
 
 CREATE TABLE Musica (
     codigo INTEGER PRIMARY KEY,
-    duracao TIME,
-    artista VARCHAR,
-    nome VARCHAR
+    duracao TIME NOT NULL,
+    artista VARCHAR(100) NOT NULL,
+    nome VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Idioma (
-    nome CHAR PRIMARY KEY
+    nome CHAR(16) PRIMARY KEY
 );
 
 CREATE TABLE Hashtag (
-    nome CHAR PRIMARY KEY
+    nome CHAR(16) PRIMARY KEY
 );
 
 CREATE TABLE Audio (
     codigo INTEGER PRIMARY KEY,
-    nome CHAR,
-    duracao TIME
+    nome CHAR(32) NOT NULL,
+    duracao TIME NOT NULL
 );
 
 CREATE TABLE Padrao_de_fotos (
-    nome CHAR PRIMARY KEY,
-    qntUsos INTEGER
+    nome CHAR(32) PRIMARY KEY,
+    qntUsos INTEGER NOT NULL
 );
 
 CREATE TABLE Efeito (
-    nome CHAR,
-    criador CHAR,
-    PRIMARY KEY (nome, criador)
+    codigo SERIAL PRIMARY KEY,
+    nome CHAR(32) NOT NULL,
+    criador CHAR(32) NOT NULL,
+    UNIQUE (nome, criador)
 );
 
 CREATE TABLE Carrossel (
-    qntFotos SMALLINT,
+    qntFotos SMALLINT NOT NULL,
     fk_Postagem_link INTEGER PRIMARY KEY,
-    fk_Padrao_de_fotos_nome CHAR
+    fk_Padrao_de_fotos_nome CHAR NOT NULL
 );
 
 CREATE TABLE Video (
-    duracao TIME,
+    duracao TIME NOT NULL,
     fk_Postagem_link INTEGER PRIMARY KEY,
-    fk_Lugar_pais CHAR,
-    fk_Lugar_estado CHAR,
-    fk_Lugar_cidade CHAR,
+    fk_Lugar_codigo INTEGER,
     fk_Pergunta_codigo INTEGER
 );
 
 CREATE TABLE Pergunta (
     codigo INTEGER PRIMARY KEY,
-    texto VARCHAR,
-    fk_Usuario_codigo INTEGER
+    texto VARCHAR(150) NOT NULL,
+    fk_Usuario_codigo INTEGER NOT NULL
 );
 
 CREATE TABLE Lugar (
-    pais CHAR,
-    estado CHAR,
-    cidade CHAR,
-    PRIMARY KEY (pais, estado, cidade)
+    codigo SERIAL PRIMARY KEY,
+    pais CHAR NOT NULL,
+    estado CHAR NOT NULL,
+    cidade CHAR NOT NULL,
+    UNIQUE (pais, estado, cidade)
 );
 
 CREATE TABLE Seguir (
-    fk_Usuario_codigo INTEGER,
-    fk_Usuario_codigo_ INTEGER
+    fk_Usuario_codigo INTEGER NOT NULL,
+    fk_Usuario_codigo_ INTEGER NOT NULL
 );
 
 CREATE TABLE Ver (
-    fk_Usuario_codigo INTEGER,
-    fk_Postagem_link INTEGER,
-    data TIMESTAMP
+    fk_Usuario_codigo INTEGER NOT NULL,
+    fk_Postagem_link INTEGER NOT NULL,
+    data TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Salvar (
-    fk_Usuario_codigo INTEGER,
-    fk_Hashtag_nome CHAR
+    fk_Usuario_codigo INTEGER NOT NULL,
+    fk_Hashtag_nome CHAR NOT NULL
 );
 
 CREATE TABLE Composicao (
-    fk_Video_fk_Postagem_link INTEGER,
-    fk_Efeito_nome CHAR,
-    fk_Efeito_criador CHAR
+    fk_Video_fk_Postagem_link INTEGER NOT NULL, 
+    fk_Efeito_codigo INTEGER NOT NULL
 );
 
 CREATE TABLE Escutar (
-    fk_Musica_codigo INTEGER,
-    fk_Usuario_codigo INTEGER
+    fk_Musica_codigo INTEGER NOT NULL,
+    fk_Usuario_codigo INTEGER NOT NULL
 );
 
 CREATE TABLE Favorito (
-    fk_Lugar_pais CHAR,
-    fk_Lugar_estado CHAR,
-    fk_Lugar_cidade CHAR,
-    fk_Usuario_codigo INTEGER
+    fk_Lugar_codigo INTEGER NOT NULL,
+    fk_Usuario_codigo INTEGER NOT NULL
 );
 
 CREATE TABLE Inclusao (
-    fk_Postagem_link INTEGER,
-    fk_Hashtag_nome CHAR
+    fk_Postagem_link INTEGER NOT NULL,
+    fk_Hashtag_nome CHAR NOT NULL
 );
 
 CREATE TABLE Compreensao (
-    fk_Idioma_nome CHAR,
-    fk_Usuario_codigo INTEGER
+    fk_Idioma_nome CHAR NOT NULL,
+    fk_Usuario_codigo INTEGER NOT NULL
 );
  
 ALTER TABLE Postagem ADD CONSTRAINT FK_Postagem_2
@@ -144,8 +142,8 @@ ALTER TABLE Video ADD CONSTRAINT FK_Video_2
     ON DELETE CASCADE;
  
 ALTER TABLE Video ADD CONSTRAINT FK_Video_3
-    FOREIGN KEY (fk_Lugar_pais, fk_Lugar_estado, fk_Lugar_cidade)
-    REFERENCES Lugar (pais, estado, cidade)
+    FOREIGN KEY (fk_Lugar_codigo)
+    REFERENCES Lugar (codigo)
     ON DELETE SET NULL;
  
 ALTER TABLE Video ADD CONSTRAINT FK_Video_4
@@ -194,8 +192,8 @@ ALTER TABLE Composicao ADD CONSTRAINT FK_Composicao_1
     ON DELETE SET NULL;
  
 ALTER TABLE Composicao ADD CONSTRAINT FK_Composicao_2
-    FOREIGN KEY (fk_Efeito_nome, fk_Efeito_criador)
-    REFERENCES Efeito (nome, criador)
+    FOREIGN KEY (fk_Efeito_codigo)
+    REFERENCES Efeito (codigo)
     ON DELETE SET NULL;
  
 ALTER TABLE Escutar ADD CONSTRAINT FK_Escutar_1
@@ -209,8 +207,8 @@ ALTER TABLE Escutar ADD CONSTRAINT FK_Escutar_2
     ON DELETE SET NULL;
  
 ALTER TABLE Favorito ADD CONSTRAINT FK_Favorito_1
-    FOREIGN KEY (fk_Lugar_pais, fk_Lugar_estado, fk_Lugar_cidade)
-    REFERENCES Lugar (pais, estado, cidade)
+    FOREIGN KEY (fk_Lugar_codigo)
+    REFERENCES Lugar (codigo)
     ON DELETE SET NULL;
  
 ALTER TABLE Favorito ADD CONSTRAINT FK_Favorito_2
