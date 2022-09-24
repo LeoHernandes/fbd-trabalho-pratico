@@ -25,7 +25,7 @@ CREATE TABLE Audio (
     ON DELETE CASCADE
 );
 
-CREATE TABLE PadraoDeFotos (
+CREATE TABLE PadraoDeFoto (
     nomePadrao CHAR(32) PRIMARY KEY
 );
 
@@ -90,14 +90,13 @@ CREATE TABLE Carrossel (
     ON DELETE CASCADE,
 	
     FOREIGN KEY (nomePadrao)
-    REFERENCES PadraoDeFotos
+    REFERENCES PadraoDeFoto
     ON DELETE CASCADE
 );
 
 CREATE TABLE Video (
 	linkPostagem INTEGER PRIMARY KEY,
     duracao TIME NOT NULL,
-	codigoEfeito INTEGER NOT NULL,
     codigoLugar INTEGER,
     codigoPergunta INTEGER,
 	
@@ -236,7 +235,7 @@ CREATE TABLE Compreensao (
 INSERT INTO Usuario(codigoUsuario, nome, descricao)
 VALUES 
 (327023, 'Vítor Caruso', 'Gaúcho e programador. Me sigam nas redes sociais! @progaucho'),
-(323691, 'Léo Vasconcelos', 'Olá, sou o Léo!'),
+(323961, 'Léo Vasconcelos', 'Olá, sou o Léo!'),
 (258134, 'Hunter Prosper', 'We are more alike than we are different'),
 (1, 'The Creator', NULL),
 (1145, 'Karin Becker', 'Sou nova por aqui!'),
@@ -245,15 +244,15 @@ VALUES
 
 INSERT INTO Seguir(usuarioSeguidor, UsuarioSeguido)
 VALUES
-(327023, 323691),
-(323691, 327023),
+(327023, 323961),
+(323961, 327023),
 (327023, 258134),
 (84579, 155470),
 (155470, 258134),
 (327023, 1145),
-(323691, 1145),
+(323961, 1145),
 (327023, 1),
-(323691, 1),
+(323961, 1),
 (258134, 1),
 (155470, 1),
 (1145, 1),
@@ -263,8 +262,8 @@ INSERT INTO Audio(codigoAudio, nome, duracao, codigoUsuario)
 VALUES 
 (1, 'som original - Vítor Caruso', '00:00:15', 327023),
 (2, 'som original - Vítor Caruso', '00:00:30', 327023),
-(3, 'som original - Léo Vasconcelos', '00:00:27', 323691),
-(4, 'som Original - Léo Vasoncelos', '00:01:14', 323691),
+(3, 'som original - Léo Vasconcelos', '00:00:27', 323961),
+(4, 'som Original - Léo Vasoncelos', '00:01:14', 323961),
 (5, 'som original - Hunter Prosper', '00:00:30', 258134),
 (6, 'som Original - Hunter Prosper', '00:01:00', 258134),
 (7, 'som original - Hunter Prosper', '00:00:23', 258134),
@@ -295,11 +294,11 @@ VALUES
 (3, 0, 5, 327023, NULL, 'Português', TRUE),
 (4, 554, 140846, 327023, 2, 'Português', TRUE),
 
-(5, 1, 14, 323691, 3, 'Português', TRUE),
-(6, 15, 4744, 323691, 18, 'Português', FALSE),
-(7, 3, 132, 323691, 4, 'Português', FALSE),
-(8, 247, 90846, 323691, 2, 'Português', TRUE),
-(9, 0, 32, 323691, 13, 'Português', TRUE),
+(5, 1, 14, 323961, 3, 'Português', TRUE),
+(6, 15, 4744, 323961, 18, 'Português', FALSE),
+(7, 3, 132, 323961, 4, 'Português', FALSE),
+(8, 247, 90846, 323961, 2, 'Português', TRUE),
+(9, 0, 32, 323961, 13, 'Português', TRUE),
 
 (10, 2045, 1256849, 258134, 5, 'Inglês', TRUE),
 (11, 53, 256441, 258134, 6, 'Inglês', TRUE),
@@ -312,13 +311,69 @@ VALUES
 (18, 564, 274648, 258134, 13, 'Inglês', TRUE),
 
 (19, 4, 53, 84579, 14, 'Espanhol', FALSE),
-(20, 1, 12, 84579, 15, 'Espanhol', FALSE),
+(20, 1, 17, 84579, 15, 'Espanhol', FALSE),
 (21, 0, 11, 84579, 16, 'Espanhol', FALSE),
 (22, 0, 34, 84579, 17, 'Espanhol', FALSE),
+(23, 0, 13, 84579, NULL, 'Espanhol', FALSE),
 
-(23, 513, 1084685, 155470, 14, 'Espanhol', FALSE),
-(24, 421, 742890, 155470, 15, 'Espanhol', FALSE),
-(25, 3042, 4452689, 155470, 16, 'Espanhol', FALSE);
+(24, 513, 1084685, 155470, 14, 'Espanhol', TRUE),
+(25, 421, 742890, 155470, 15, 'Espanhol', TRUE),
+(26, 3042, 4452689, 155470, 16, 'Espanhol', TRUE);
+
+INSERT INTO Ver(linkPostagem, codigoUsuario, dataHora, curtiu, compartilhou)
+VALUES
+(10, 327023, '2022-08-02 22:04:21', TRUE, TRUE),
+(11, 327023, '2022-08-02 22:07:25', FALSE, FALSE),
+(12, 327023, '2022-08-03 12:53:48', FALSE, FALSE),
+(13, 327023, '2022-08-03 12:57:11', FALSE, TRUE),
+(14, 327023, '2022-08-03 13:02:01', FALSE, FALSE),
+(15, 327023, '2022-08-03 13:05:15', TRUE, TRUE),
+(16, 327023, '2022-08-05 15:42:58', FALSE, FALSE),
+(17, 327023, '2022-08-06 02:20:36', TRUE, FALSE),
+(18, 327023, '2022-08-06 02:29:31', FALSE, FALSE),
+(8, 327023, '2022-09-12 23:05:10', TRUE, FALSE),
+(6, 327023, '2022-09-25 22:30:42', TRUE, FALSE),
+
+(1, 323961, '2022-09-11 03:15:46', TRUE, FALSE),
+(2, 323961, '2022-09-12 22:39:41', TRUE, FALSE),
+(3, 323961, '2022-09-17 21:55:23', FALSE, FALSE),
+(4, 323961, '2022-09-22 22:06:02', TRUE, TRUE),
+
+(4, 1145, '2022-09-11 12:31:16', TRUE, FALSE),
+(8, 1145, '2022-09-12 12:40:39', TRUE, FALSE),
+
+(24, 84579, '2022-05-03 17:25:20', TRUE, TRUE),
+(25, 84579, '2022-07-29 04:22:50', TRUE, TRUE),
+(26, 84579, '2022-08-20 18:49:13', TRUE, TRUE);
+
+INSERT INTO PadraoDeFoto(nomePadrao)
+VALUES 
+('Rainbow'),
+('Glitters'),
+('No Vapor'),
+('TV Show'),
+('Glitch'),
+('Raining Love');
+
+INSERT INTO Efeito(codigoEfeito, nome, codigoUsuario)
+VALUES 
+(1, 'Sardas Reais', 1),
+(2, 'Desenhando o Rosto', 1),
+(3, 'Olhos Azuis', 1),
+(4, 'Lightning', 258134),
+(5, 'Distorsión delirante', 155470),
+(6, 'Sintiendo el ritmo', 155470);
+
+INSERT INTO Carrossel(linkPostagem, quantidadefotos, nomePadrao)
+VALUES 
+(2, 5, 'Glitch'),
+(6, 10, 'TV Show'),
+(7, 10, 'No Vapor'),
+(19, 3, 'Raining Love'),
+(20, 6, 'Glitters'),
+(21, 7, 'Rainbow'),
+(22, 7, 'Rainbow'),
+(23, 10, 'Glitters');
 
 ---------------------------------------------------------------
 -------------------------- CONSULTAS --------------------------
@@ -332,6 +387,6 @@ AS select nome, sum (curtidas) totalCurtidas
    
 CREATE VIEW TotalSeguidoresPorUsuario
 AS select nome, count TotalSeguidores
-   from Usuario join Seguir (using Usuario.codigoUsuario = Seguir.usuarioSeguido)
+   from Usuario join Seguir (on Usuario.codigoUsuario = Seguir.usuarioSeguido)
    group by codigoUsuario
    order by nome
