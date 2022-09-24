@@ -240,19 +240,22 @@ VALUES
 (258134, 'Hunter Prosper', 'We are more alike than we are different'),
 (1, 'The Creator', NULL),
 (1145, 'Karin Becker', 'Sou nova por aqui!'),
-(84579, 'Camilla Santaola', 'Libre para disfrutar de la vida');
+(84579, 'Camilla Santaola', 'Libre para disfrutar de la vida'),
+(155470, 'DJ Hernandes', 'Ven a escuchar mis canciones');
 
 INSERT INTO Seguir(usuarioSeguidor, UsuarioSeguido)
 VALUES
 (327023, 323691),
 (323691, 327023),
 (327023, 258134),
-(84579, 258134),
+(84579, 155470),
+(155470, 258134),
 (327023, 1145),
 (323691, 1145),
 (327023, 1),
 (323691, 1),
 (258134, 1),
+(155470, 1),
 (1145, 1),
 (84579, 1);
 
@@ -271,9 +274,9 @@ VALUES
 (11, 'som original - Hunter Prosper', '00:00:46', 258134),
 (12, 'som Original - Hunter Prosper', '00:01:51', 258134),
 (13, 'kaboom', '00:00:09', 258134),
-(14, 'envolver-remix', '00:01:00', 84579),
-(15, 'dont worry-remix', '00:00:30', 84579),
-(16, 'despacito-remix', '00:01:00', 84579),
+(14, 'envolver-remix', '00:01:00', 155470),
+(15, 'dont worry-remix', '00:00:30', 155470),
+(16, 'despacito-remix', '00:01:00', 155470),
 (17, 'where is my mind', '00:00:37', 1),
 (18, 'Facetime ring', '00:10:00', 1),
 (19, 'Beep', '00:00:04', 1);
@@ -311,7 +314,11 @@ VALUES
 (19, 4, 53, 84579, 14, 'Espanhol', FALSE),
 (20, 1, 12, 84579, 15, 'Espanhol', FALSE),
 (21, 0, 11, 84579, 16, 'Espanhol', FALSE),
-(22, 0, 34, 84579, 17, 'Espanhol', FALSE);
+(22, 0, 34, 84579, 17, 'Espanhol', FALSE),
+
+(23, 513, 1084685, 155470, 14, 'Espanhol', FALSE),
+(24, 421, 742890, 155470, 15, 'Espanhol', FALSE),
+(25, 3042, 4452689, 155470, 16, 'Espanhol', FALSE);
 
 ---------------------------------------------------------------
 -------------------------- CONSULTAS --------------------------
