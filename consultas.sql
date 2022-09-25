@@ -54,7 +54,13 @@ where totalReproducoesPorIdioma >= all (select count(*)
 -----------------------------------------------------------------
 /* Efeitos utilizados por usuário por ordem de curtidas totais */
 
-
+select TotalCurtidasPorUsuario.codigoUsuario, TotalCurtidas, Efeito.nome
+from TotalCurtidasPorUsuario join Postagem using (codigoUsuario)
+                             join Video using (linkPostagem)  
+                             join Composicao using (linkPostagem)
+                             join Efeito using (codigoEfeito)
+group by TotalCurtidas, TotalCurtidasPorUsuario.codigoUsuario, Efeito.nome
+order by TotalCurtidas desc
 
 -----------------------------------------------------------------
 /* Usuários que salvaram a hashtag inclusa no carrossel mais visto */
@@ -107,4 +113,3 @@ where curtidas in (select max(curtidas)
                    group by pais)
 group by pais, curtidas, linkPostagem
 order by curtidas desc
-
