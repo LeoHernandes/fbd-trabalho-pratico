@@ -287,6 +287,20 @@ VALUES
 ('Inglês'),
 ('Alemão');
 
+INSERT INTO Compreensao(nomeIdioma, codigoUsuario)
+VALUES
+('Português', 327023),
+('Inglês', 327023),
+('Português', 323961),
+('Português', 1145),
+('Espanhol', 1145),
+('Inglês', 1145),
+('Alemão', 1145),
+('Inglês', 258134),
+('Inglês', 1),
+('Espanhol', 84579),
+('Espanhol', 155470);
+
 INSERT INTO Postagem(linkPostagem, compartilhamentos, curtidas, codigoUsuario, codigoAudio, nomeIdioma, tipo)
 VALUES 
 (1, 107, 26045, 327023, 19, 'Português', TRUE),
@@ -418,6 +432,96 @@ VALUES
 (24, '00:00:30', 4, 4),
 (25, '00:00:30', NULL, NULL),
 (26, '00:00:30', NULL, NULL);
+
+INSERT INTO Composicao(linkPostagem, codigoEfeito)
+VALUES
+(4, 3),
+(8, 3),
+(10, 1),
+(12, 2),
+(13, 3),
+(24, 5),
+(24, 6),
+(25, 4),
+(25, 5),
+(26, 6);
+
+INSERT INTO Hashtag(nomeHashtag)
+VALUES 
+('fyp'),
+('foryou'),
+('amor'),
+('love'),
+('refreshing'),
+('cute'),
+('remix'),
+('joke');
+
+INSERT INTO Salvar(codigoUsuario, nomeHashtag)
+VALUES
+(327023, 'cute'),
+(327023, 'amor'),
+(327023, 'love'),
+(327023, 'joke'),
+(323961, 'fyp'),
+(323961, 'foryou'),
+(323961, 'amor'),
+(323961, 'love'),
+(323961, 'remix'),
+(1145, 'amor'),
+(1145, 'love'),
+(1145, 'cute'),
+(84579, 'fyp'),
+(84579, 'remix'),
+(155470, 'remix');
+
+INSERT INTO Inclusao(nomeHashtag, linkPostagem)
+VALUES
+('fyp', 4),
+('fyp', 8),
+('fyp', 10),
+('fyp', 11),
+('fyp', 12),
+('fyp', 13),
+('fyp', 14),
+('fyp', 15),
+('fyp', 16),
+('fyp', 17),
+('fyp', 18),
+('fyp', 19),
+('fyp', 20),
+('fyp', 21),
+('fyp', 22),
+('fyp', 23),
+('fyp', 24),
+('fyp', 25),
+('fyp', 26),
+('foryou', 4),
+('foryou', 8),
+('foryou', 10),
+('foryou', 11),
+('foryou', 12),
+('foryou', 13),
+('foryou', 14),
+('foryou', 15),
+('foryou', 16),
+('foryou', 17),
+('foryou', 18),
+('foryou', 24),
+('foryou', 25),
+('foryou', 26),
+('amor', 4),
+('amor', 8),
+('cute', 10),
+('cute', 19),
+('cute', 20),
+('joke', 11),
+('joke', 12),
+('joke', 23),
+('love', 13),
+('remix', 24),
+('remix', 25),
+('remix', 26);
 
 ---------------------------------------------------------------
 -------------------------- CONSULTAS --------------------------
