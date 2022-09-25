@@ -334,6 +334,7 @@ VALUES
 (25, 421, 742890, 155470, 15, 'Espanhol', TRUE),
 (26, 3042, 4452689, 155470, 16, 'Espanhol', TRUE);
 
+
 INSERT INTO Ver(linkPostagem, codigoUsuario, dataHora, curtiu, compartilhou)
 VALUES
 (10, 327023, '2022-08-02 22:04:21', TRUE, TRUE),

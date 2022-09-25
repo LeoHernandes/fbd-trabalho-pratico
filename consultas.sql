@@ -1,3 +1,37 @@
+---------------------------------------------------------------
+------------------- PROCEDIMENTO ARMAZENADO -------------------
+---------------------------------------------------------------
+
+create or replace function AtualizaPostagem() returns trigger as
+$$
+	begin
+		if new.curtiu and not new.compartilhou then
+			update Postagem
+				set curtidas = curtidas + 1
+			where Postagem.linkPostagem = new.linkPostagem;
+		elsif not new.curtiu and new.compartilhou then
+			update Postagem
+				set compartilhamentos = compartilhamentos + 1
+			where Postagem.linkPostagem = new.linkPostagem;
+		elsif new.curtiu and new.compartilhou then
+			update Postagem
+				set curtidas = curtidas + 1,
+				 compartilhamentos = compartilhamentos + 1
+			where Postagem.linkPostagem = new.linkPostagem;
+		end if;
+		return null;
+	end;
+	 $$
+	 language plpgsql;
+
+---------------------------------------------------------------
+--------------------------- GATILHO ---------------------------
+---------------------------------------------------------------
+
+CREATE TRIGGER gatilhoAtualizaPostagem
+AFTER INSERT OR UPDATE ON Ver
+FOR EACH ROW EXECUTE PROCEDURE AtualizaPostagem();
+
 --------------------------------------------------------------
 --------------------------- VISÕES ---------------------------
 --------------------------------------------------------------
