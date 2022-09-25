@@ -530,7 +530,7 @@ VALUES
 (3, '00:03:36', 'Billie Eilish', 'The 30th'),
 (4, '00:03:14', 'Ana Castela', 'Pipoco'),
 (5, '00:03:53', 'Joji', 'Glimpse of Us'),
-(6, '00:02:47', 'Mc Livinho, Alok', 'Symphonia - Remix');
+(6, '00:02:47', 'Mc Livinho, Alok', 'Symphonia - Remix'),
 (7, '00:03:13', 'Anitta', 'Envolver');
 
 INSERT INTO Escutar(codigoMusica, codigoUsuario, dataHora)
@@ -582,25 +582,3 @@ VALUES
 (2, 1145, '2022-07-02 18:28:12'),
 (2, 1145, '2022-07-02 18:37:15'),
 (2, 1145, '2022-07-02 18:41:54');
-
----------------------------------------------------------------
--------------------------- CONSULTAS --------------------------
----------------------------------------------------------------
-
-CREATE VIEW TotalCurtidasPorUsuario
-AS select nome, sum (curtidas) totalCurtidas
-   from Usuario natural join Postagem
-   group by codigoUsuario
-   order by nome
-   
-CREATE VIEW TotalSeguidoresPorUsuario
-AS select nome, count (usuarioSeguidor) TotalSeguidores
-   from Usuario join Seguir on (Usuario.codigoUsuario = Seguir.usuarioSeguido)
-   group by codigoUsuario
-   order by nome
-   
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
-
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO public;
