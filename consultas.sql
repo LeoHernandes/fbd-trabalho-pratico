@@ -39,7 +39,17 @@ where Usuario.codigoUsuario = Audio.codigoUsuario
 -----------------------------------------------------------------
 /* Nome da música mais escutada por usuários que compreendem determinado idioma */
 
-
+select nomeIdioma, nome
+from (select nomeIdioma, Musica.nome, count(*) as totalReproducoesPorIdioma
+	  from Compreensao natural join Usuario 
+					   natural join Escutar
+	 				   join Musica using (codigoMusica)
+	  group by nomeIdioma, Musica.nome, codigoMusica) as musicasReproduzidasPorIdioma
+where totalReproducoesPorIdioma >= all (select count(*)
+					 					from Compreensao natural join Usuario 
+								        				 natural join Escutar
+					 					where nomeIdioma = musicasReproduzidasPorIdioma.nomeIdioma
+										group by codigoMusica)
 
 -----------------------------------------------------------------
 /* Efeitos utilizados por usuário por ordem de curtidas totais */
