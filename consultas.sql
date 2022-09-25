@@ -55,8 +55,7 @@ where totalReproducoesPorIdioma >= all (select count(*)
 /* Efeitos utilizados por usuário por ordem de curtidas totais */
 
 select TotalCurtidasPorUsuario.codigoUsuario, TotalCurtidas, Efeito.nome
-from TotalCurtidasPorUsuario join Postagem using (codigoUsuario)
-                             join Video using (linkPostagem)  
+from TotalCurtidasPorUsuario join Postagem using (codigoUsuario) 
                              join Composicao using (linkPostagem)
                              join Efeito using (codigoEfeito)
 group by TotalCurtidas, TotalCurtidasPorUsuario.codigoUsuario, Efeito.nome
@@ -109,7 +108,7 @@ from Postagem join Video using (linkPostagem)
               join Lugar using (codigoLugar)
 where curtidas in (select max(curtidas)
                    from Postagem join Video using (linkPostagem)
-                                join Lugar using (codigoLugar)
+                                 join Lugar using (codigoLugar)
                    group by pais)
 group by pais, curtidas, linkPostagem
 order by curtidas desc
