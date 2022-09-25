@@ -62,9 +62,15 @@ group by TotalCurtidas, TotalCurtidasPorUsuario.codigoUsuario, Efeito.nome
 order by TotalCurtidas desc
 
 -----------------------------------------------------------------
-/* Usuários que salvaram a hashtag inclusa no carrossel mais visto */
+/* Usuários que salvaram alguma hashtag inclusa no video mais curtido */
 
-
+select distinct nome
+from Usuario natural join Salvar 
+			 natural join Inclusao 
+			 join Postagem using (linkPostagem) 
+where curtidas in (select max(curtidas)
+						  from Postagem 
+						  where tipo = TRUE)
 
 -----------------------------------------------------------------
 /* Hashtags usadas em videos no Brasil por ordem de uso */
@@ -97,10 +103,16 @@ from Usuario join Ver using (codigoUsuario)
 where curtiu = true and nome = 'Vítor Caruso'	
 
 -----------------------------------------------------------------
-/* Padrões de fotos utilizados em carrosséis que possuem mais de 50000 compartilhamentos */
+/* Padrões de fotos utilizados em carrosséis que possuem mais de 10 compartilhamentos e mais de 5 fotos 
+   e nome dos criadores da publicação */
 
-
-
+select nome, linkPostagem, nomePadrao
+from Usuario natural join Postagem
+		 	 natural join Carrossel
+			 natural join PadraoDeFoto
+where compartilhamentos > 10 and quantidadeFotos > 5
+order by nome
+			  
 -----------------------------------------------------------------
 /* Para cada país em que um vídeo foi gravado, o link do seu vídeo com o maior número de curtidas */
 select pais, curtidas, linkPostagem
