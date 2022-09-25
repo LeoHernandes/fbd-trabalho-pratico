@@ -355,14 +355,14 @@ VALUES
 ('Glitch'),
 ('Raining Love');
 
-INSERT INTO Efeito(codigoEfeito, nome, codigoUsuario)
+INSERT INTO Efeito(nome, codigoUsuario)
 VALUES 
-(1, 'Sardas Reais', 1),
-(2, 'Desenhando o Rosto', 1),
-(3, 'Olhos Azuis', 1),
-(4, 'Lightning', 258134),
-(5, 'Distorsión delirante', 155470),
-(6, 'Sintiendo el ritmo', 155470);
+('Sardas Reais', 1),
+('Desenhando o Rosto', 1),
+('Olhos Azuis', 1),
+('Lightning', 258134),
+('Distorsión delirante', 155470),
+('Sintiendo el ritmo', 155470);
 
 INSERT INTO Carrossel(linkPostagem, quantidadefotos, nomePadrao)
 VALUES 
@@ -375,6 +375,50 @@ VALUES
 (22, 7, 'Rainbow'),
 (23, 10, 'Glitters');
 
+INSERT INTO Pergunta(codigoPergunta, texto, codigoUsuario)
+VALUES 
+(1, 'Qual sua comida favorita?', 327023),
+(2, 'Qual profissão você queria ser quando criança?', 323961),
+(3, 'What was the name of your first love and why did you fall in love with them?', 258134),
+(4, '¿Cuál es tu remix favorito?', 84579);
+
+INSERT INTO Lugar(cidade, estado, pais)
+VALUES 
+('Porto Alegre do Norte', 'Mato Grosso', 'Brasil'),
+('Porto Alegre', 'Rio Grande do Sul', 'Brasil'),
+('Orlando', 'Flórida', 'Estados Unidos'),
+('Terrassa', 'Barcelona', 'Espanha');
+
+INSERT INTO Favorito(codigoLugar, codigoUsuario)
+VALUES
+(1, 327023),
+(2, 327023),
+(2, 323961),
+(2, 1145),
+(3, 258134);
+
+INSERT INTO Video(linkPostagem, duracao, codigoPergunta, codigoLugar)
+VALUES 
+
+(1, '00:00:15', NULL, NULL),
+(3, '00:01:00', NULL, 2),
+(4, '00:00:37', 3, 2),
+(5, '00:00:37', NULL, NULL),
+(8, '00:00:37', NULL, 2),
+(9, '00:00:45', 1, NULL),
+(10, '00:00:30', NULL, 3),
+(11, '00:01:00', NULL, 3),
+(12, '00:00:23', NULL, 3),
+(13, '00:01:25', 3, 3),
+(14, '00:02:03', NULL, 3),
+(15, '00:01:00', NULL, 3),
+(16, '00:00:46', NULL, 3),
+(17, '00:01:51', NULL, 3),
+(18, '00:00:10', NULL, 3),
+(24, '00:00:30', 4, 4),
+(25, '00:00:30', NULL, NULL),
+(26, '00:00:30', NULL, NULL);
+
 ---------------------------------------------------------------
 -------------------------- CONSULTAS --------------------------
 ---------------------------------------------------------------
@@ -386,7 +430,13 @@ AS select nome, sum (curtidas) totalCurtidas
    order by nome
    
 CREATE VIEW TotalSeguidoresPorUsuario
-AS select nome, count TotalSeguidores
-   from Usuario join Seguir (on Usuario.codigoUsuario = Seguir.usuarioSeguido)
+AS select nome, count (usuarioSeguidor) TotalSeguidores
+   from Usuario join Seguir on (Usuario.codigoUsuario = Seguir.usuarioSeguido)
    group by codigoUsuario
    order by nome
+   
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO public;
