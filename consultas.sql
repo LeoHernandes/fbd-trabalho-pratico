@@ -3,7 +3,7 @@
 --------------------------------------------------------------
 
 CREATE VIEW TotalCurtidasPorUsuario
-AS select nome, sum (curtidas) totalCurtidas
+AS select codigoUsuario, sum (curtidas) totalCurtidas
    from Usuario natural join Postagem
    group by codigoUsuario
    order by nome
@@ -98,4 +98,13 @@ where curtiu = true and nome = 'Vítor Caruso'
 
 -----------------------------------------------------------------
 /* Para cada país em que um vídeo foi gravado, o link do seu vídeo com o maior número de curtidas */
+select pais, curtidas, linkPostagem
+from Postagem join Video using (linkPostagem)
+              join Lugar using (codigoLugar)
+where curtidas in (select max(curtidas)
+                   from Postagem join Video using (linkPostagem)
+                                join Lugar using (codigoLugar)
+                   group by pais)
+group by pais, curtidas, linkPostagem
+order by curtidas desc
 
