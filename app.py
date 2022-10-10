@@ -239,8 +239,10 @@ e nome dos criadores da publicação
         liked = True if liked == "Y" else False
         shared = input("Compartilhou?[Y/N] ").upper()
         shared = True if shared == "Y" else False
+        print("Curtidas e compartilhamentos antes de inserir:")
         self.db.print_likes_shares(link)
         self.db.insert_ver(link, user_code, date, liked, shared)
+        print("Curtidas e compartilhamentos após inserir:")
         self.db.print_likes_shares(link)
 
 
