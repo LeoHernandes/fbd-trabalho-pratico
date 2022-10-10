@@ -38,10 +38,11 @@ class TicoTeco:
             cursor.execute("""INSERT INTO Ver(linkPostagem, codigoUsuario, dataHora, curtiu, compartilhou) 
                               VALUES (%s, %s, %s, %s, %s)""", (link, user_code, date, liked, shared))
 
-    def print_likes_shares(self):
+    def print_likes_shares(self, link):
         with self._connection.cursor() as cursor:
             cursor.execute("""select curtidas, compartilhamentos
-                              from Postagem""")
+                              from Postagem
+                              where linkPostagem = %s""", (link, ))
             self.print_query(cursor)
 
     def query1(self):
@@ -230,15 +231,15 @@ e nome dos criadores da publicação
             case 10:
                 self.db.query10()
 
-    # def trigger_test(self):
-    #     link = input("Link da postagem: ")
-    #     user_code = int(input("Código do usuário"))
-    #     date = input("Data e hora em que a postagem foi assistida: ")
-    #     liked = bool(input("Curtiu? "))
-    #     shared = bool(input("Compartilhou? "))
-    #     self.db.print_likes_shares()
-    #     self.db.insert_ver(link, user_code, date, liked, shared)
-    #     self.db.print_likes_shares()
+    def trigger_test(self):
+        link = input("Link da postagem: ")
+        user_code = int(input("Código do usuário"))
+        date = input("Data e hora em que a postagem foi assistida: ")
+        liked = bool(input("Curtiu? "))
+        shared = bool(input("Compartilhou? "))
+        self.db.print_likes_shares(link)
+        self.db.insert_ver(link, user_code, date, liked, shared)
+        self.db.print_likes_shares(link)
 
 
 controller = DBController()
