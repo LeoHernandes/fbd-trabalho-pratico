@@ -233,10 +233,12 @@ e nome dos criadores da publicação
 
     def trigger_test(self):
         link = input("Link da postagem: ")
-        user_code = int(input("Código do usuário"))
+        user_code = int(input("Código do usuário: "))
         date = input("Data e hora em que a postagem foi assistida: ")
-        liked = bool(input("Curtiu? "))
-        shared = bool(input("Compartilhou? "))
+        liked = input("Curtiu?[Y/N] ").upper()
+        liked = True if liked == "Y" else False
+        shared = input("Compartilhou?[Y/N] ").upper()
+        shared = True if shared == "Y" else False
         self.db.print_likes_shares(link)
         self.db.insert_ver(link, user_code, date, liked, shared)
         self.db.print_likes_shares(link)
